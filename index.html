@@ -63,10 +63,7 @@
     </table>
 
     <script>
-      const form = document.getElementById("registration-form");
-      form.addEventListener("submit", function (event) {
-        event.preventDefault();
-
+      function validateForm() {
         const name = document.getElementById("name").value;
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
@@ -75,7 +72,7 @@
 
         if (!name || !email || !password || !dob || !acceptedTerms) {
           alert("Please fill in all the fields.");
-          return;
+          return false;
         }
 
         const dobDate = new Date(dob);
@@ -85,7 +82,7 @@
         const age = currentYear - dobYear;
         if (age < 18 || age > 55) {
           alert("You must be between 18 and 55 years old to register.");
-          return;
+          return false;
         }
 
         const entry = { name, email, password, dob, acceptedTerms };
@@ -106,7 +103,9 @@
         passwordCell.textContent = password;
         dobCell.textContent = dob;
         acceptedTermsCell.textContent = acceptedTerms;
-      });
+
+        return false;
+      }
     </script>
   </body>
 </html>
