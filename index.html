@@ -62,8 +62,26 @@
       <tbody id="entries-table-body"></tbody>
     </table>
 
-    <script>
+       <script>
       const form = document.getElementById("registration-form");
+      const tableBody = document.getElementById("entries-table-body");
+
+      // Load entries from local storage
+      const entries = JSON.parse(localStorage.getItem("entries")) || [];
+      for (const entry of entries) {
+        const newRow = tableBody.insertRow();
+        const nameCell = newRow.insertCell();
+        const emailCell = newRow.insertCell();
+        const passwordCell = newRow.insertCell();
+        const dobCell = newRow.insertCell();
+        const acceptedTermsCell = newRow.insertCell();
+        nameCell.textContent = entry.name;
+        emailCell.textContent = entry.email;
+        passwordCell.textContent = entry.password;
+        dobCell.textContent = entry.dob;
+        acceptedTermsCell.textContent = entry.acceptedTerms;
+      }
+
       form.addEventListener("submit", (event) => {
         event.preventDefault(); // stop form submission
         const name = document.getElementById("name").value;
@@ -96,11 +114,7 @@
 
         const entry = { name, email, password, dob, acceptedTerms };
 
-        const entries = JSON.parse(localStorage.getItem("entries")) || [];
-        entries.push(entry);
-        localStorage.setItem("entries", JSON.stringify(entries));
-
-        const tableBody = document.getElementById("entries-table-body");
+        // Add new entry to the table
         const newRow = tableBody.insertRow();
         const nameCell = newRow.insertCell();
         const emailCell = newRow.insertCell();
@@ -113,10 +127,15 @@
         dobCell.textContent = dob;
         acceptedTermsCell.textContent = acceptedTerms;
 
+        // Add new entry to local storage
+        entries.push(entry);
+        localStorage.setItem("entries", JSON.stringify(entries));
+
         form.reset();
 
         return false;
       });
     </script>
+
   </body>
 </html>
