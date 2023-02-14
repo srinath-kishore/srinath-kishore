@@ -16,7 +16,7 @@
   <body>
     <h1>Registration Form</h1>
 
-    <form onsubmit="validateForm()" id="registration-form">
+    <form id="registration-form">
       <div>
         <label for="name">Name:</label>
         <input type="text" id="name" required />
@@ -63,8 +63,9 @@
     </table>
 
     <script>
-      function validateForm() {
-        const form = document.getElementById("registration-form");
+      const form = document.getElementById("registration-form");
+      form.addEventListener("submit", (event) => {
+        event.preventDefault(); // stop form submission
         const name = document.getElementById("name").value;
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
@@ -115,7 +116,7 @@
         form.reset();
 
         return false;
-      }
+      });
     </script>
   </body>
 </html>
